@@ -13,11 +13,23 @@ int  main()
     printf("Enter how many cards to serve : ");
     scanf("%d",&n);
 
+    if(n>52){
+        printf("You can't serve more than 52 cards . \n");
+        return 1;
+    }
+
     char cards[n][2];
+    int served[52]={0};
 
     for(int i=0;i<n;i++){
-        cards[i][0]=rank[rand()%12];
-        cards[i][1]=suit[rand()%3];
+        int randCard;
+        do{
+                randCard=rand()%52;  //to ensure qunique cards
+        }while(served[randCard]);
+
+        served[randCard]=1;
+        cards[i][0]=rank[randCard%13];
+        cards[i][1]=suit[randCard/13];
     }
 
     printf("The served cards are : ");
